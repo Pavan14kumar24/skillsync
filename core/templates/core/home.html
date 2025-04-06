@@ -1,0 +1,52 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Welcome to SkillSync</h2>
+    <p class="text-center mb-5">Manage your skills and courses easily!</p>
+
+    {% if user.is_authenticated %}
+        <h4 class="mb-3">Skills</h4>
+        <div class="row">
+            {% if skills %}
+                {% for skill in skills %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ skill.name }}</h5>
+                            <p class="card-text">{{ skill.description }}</p>
+                            <p><strong>Proficiency:</strong></p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-center">No skills added yet.</p>
+            {% endif %}
+        </div>
+
+        <h4 class="mt-5 mb-3">Courses</h4>
+        <div class="row">
+            {% if courses %}
+                {% for course in courses %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ course.title }}</h5>
+                            <p class="card-text">{{ course.description }}</p>
+                            <p><strong>Platform:</strong> {{ course.platform }}</p>
+                            <a href="{{ course.url }}" class="btn btn-primary btn-sm" target="_blank">View Course</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-center">No courses added yet.</p>
+            {% endif %}
+        </div>
+    {% else %}
+        <p class="text-center">Please <a href="{% url 'login' %}">log in</a> to view your personalized skills and courses.</p>
+    {% endif %}
+</div>
+{% endblock %}
