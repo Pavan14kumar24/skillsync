@@ -6,7 +6,8 @@ SkillSync is a personal skill management and course tracking web application des
 
 ## 🚀 Features
 
-🚀 Features
+
+
 	•	🔐 User Authentication – Secure signup, login, and logout system
  
 	•	🧠 AI Chatbot Assistant – A built-in assistant to help users navigate the app
