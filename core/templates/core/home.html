@@ -1,12 +1,27 @@
 {% extends 'core/base.html' %}
 {% load static %}
+{% load custom_filters %}
 
 {% block content %}
 <div class="container mt-5">
     <h2 class="text-center mb-4">Welcome to SkillSync</h2>
-    <p class="text-center mb-5">Manage your skills and courses easily!</p>
+    <p class="text-center mb-3">Manage your skills and courses easily!</p>
+
+    <!-- Learning SVG Image -->
+    <div class="text-center mb-5">
+        <img src="{% static 'core/images/learning.svg' %}" alt="Learning Illustration" style="max-width: 500px; width: 100%;">
+    </div>
+
+    <!-- Motivational Quote -->
+    <div class="text-center my-5">
+        <blockquote class="blockquote">
+            <p class="mb-0">"The best way to predict the future is to create it."</p>
+            <footer class="blockquote-footer mt-2">Abraham Lincoln</footer>
+        </blockquote>
+    </div>
 
     {% if user.is_authenticated %}
+        <!-- Skills Section -->
         <h4 class="mb-3">Skills</h4>
         <div class="row">
             {% if skills %}
@@ -16,7 +31,14 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ skill.name }}</h5>
                             <p class="card-text">{{ skill.description }}</p>
-                            <p><strong>Proficiency:</strong></p>
+                            <form method="POST" action="{% url 'update_proficiency' skill.id %}">
+                                {% csrf_token %}
+                                <input type="range" name="proficiency" min="0" max="100"
+                                    value="{{ skill_proficiency_map|default_if_none:'0'|dict_key:skill.id }}"
+                                    class="form-range mb-2">
+                                <p><strong>Proficiency:</strong> {{ skill_proficiency_map|default_if_none:'0'|dict_key:skill.id }}%</p>
+                                <button type="submit" class="btn btn-success btn-sm">Update</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -26,6 +48,7 @@
             {% endif %}
         </div>
 
+        <!-- Courses Section -->
         <h4 class="mt-5 mb-3">Courses</h4>
         <div class="row">
             {% if courses %}
@@ -36,7 +59,15 @@
                             <h5 class="card-title">{{ course.title }}</h5>
                             <p class="card-text">{{ course.description }}</p>
                             <p><strong>Platform:</strong> {{ course.platform }}</p>
-                            <a href="{{ course.url }}" class="btn btn-primary btn-sm" target="_blank">View Course</a>
+                            <a href="{{ course.url }}" class="btn btn-primary btn-sm mb-2" target="_blank">View Course</a>
+                            <p><strong>Progress:</strong> {{ course_progress_map|default_if_none:"0"|dict_key:course.id }}%</p>
+                            <form method="POST" action="{% url 'update_progress' course.id %}">
+                                {% csrf_token %}
+                                <input type="range" name="progress" min="0" max="100"
+                                    value="{{ course_progress_map|default_if_none:"0"|dict_key:course.id }}"
+                                    class="form-range mb-2">
+                                <button type="submit" class="btn btn-success btn-sm">Update Progress</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -48,5 +79,27 @@
     {% else %}
         <p class="text-center">Please <a href="{% url 'login' %}">log in</a> to view your personalized skills and courses.</p>
     {% endif %}
+
+    <!-- Feedback Section -->
+    <hr class="mt-5">
+    <h4 class="text-center mb-3">We value your feedback</h4>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form method="POST" action="{% url 'submit_feedback' %}">
+                {% csrf_token %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} text-center">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <textarea name="message" class="form-control mb-3" rows="3" placeholder="Write your feedback here..." required></textarea>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}

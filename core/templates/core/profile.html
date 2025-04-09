@@ -1,0 +1,63 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">My Profile</h2>
+    <div class="text-center mb-3">
+        <p><strong>Username:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <a href="{% url 'download_pdf' %}" class="btn btn-danger btn-sm mt-2">📄 Download PDF Report</a>
+    </div>
+
+    <h4 class="text-center mt-4">Skill Proficiency</h4>
+    <canvas id="skillChart" width="400" height="200"></canvas>
+
+    <h4 class="text-center mt-5">Course Progress</h4>
+    <canvas id="courseChart" width="400" height="200"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const skillCtx = document.getElementById('skillChart').getContext('2d');
+    const courseCtx = document.getElementById('courseChart').getContext('2d');
+
+    const skillChart = new Chart(skillCtx, {
+        type: 'bar',
+        data: {
+            labels: [{% for entry in skill_progress %}'{{ entry.skill.name }}',{% endfor %}],
+            datasets: [{
+                label: 'Skill Proficiency (%)',
+                backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1,
+                data: [{% for entry in skill_progress %}{{ entry.proficiency }},{% endfor %}]
+            }]
+        },
+        options: {
+            scales: {
+                y: { beginAtZero: true, max: 100 }
+            }
+        }
+    });
+
+    const courseChart = new Chart(courseCtx, {
+        type: 'bar',
+        data: {
+            labels: [{% for entry in course_progress %}'{{ entry.course.title }}',{% endfor %}],
+            datasets: [{
+                label: 'Course Progress (%)',
+                backgroundColor: 'rgba(75, 192, 192, 0.7)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+                data: [{% for entry in course_progress %}{{ entry.progress }},{% endfor %}]
+            }]
+        },
+        options: {
+            scales: {
+                y: { beginAtZero: true, max: 100 }
+            }
+        }
+    });
+</script>
+{% endblock %}

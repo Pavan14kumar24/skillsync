@@ -2,6 +2,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Card Styling */
 .card {
     border: none;
     border-radius: 10px;
@@ -16,10 +17,117 @@ body {
     font-size: 0.95rem;
 }
 
+/* Navigation Styling */
 header nav a {
     text-decoration: none;
 }
 
 header nav a:hover {
     text-decoration: underline;
+}
+
+/* Profile Button Styling */
+.profile-btn {
+    background-color: #343a40;
+    color: white !important;
+}
+
+.profile-btn:hover {
+    background-color: #23272b;
+    color: white !important;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #121212;
+    color: #f1f1f1;
+}
+
+.dark-mode .card {
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+.dark-mode .navbar,
+.dark-mode header {
+    background-color: #1f1f1f !important;
+}
+
+.dark-mode .btn {
+    border-color: #f1f1f1;
+    color: #f1f1f1;
+}
+
+/* Chatbot Styles */
+#chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+#chatbot-toggle {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+#chatbot-box {
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 300px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+#chatbot-messages {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+.message {
+    margin: 5px 0;
+}
+
+.message.bot {
+    text-align: left;
+    color: #007bff;
+}
+
+.message.user {
+    text-align: right;
+    color: #333;
+}
+
+#chatbot-input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    width: 80%;
+    border-radius: 5px;
+}
+
+#chatbot-send {
+    padding: 5px 10px;
+    margin-left: 5px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+blockquote {
+    font-size: 1.25rem;
+    font-style: italic;
+    color: #555;
+}
+.blockquote-footer {
+    color: #888;
 }

@@ -4,5 +4,7 @@ register = template.Library()
 
 @register.filter
 def dict_key(d, key):
-    """Allows dictionary lookup in Django templates: {{ mydict|dict_key:some_key }}"""
-    return d.get(key, 0)
+    """Safe dictionary lookup for templates."""
+    if isinstance(d, dict):
+        return d.get(key, 0)
+    return 0

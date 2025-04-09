@@ -5,29 +5,46 @@
 {% block content %}
 <div class="container mt-5">
     <h2 class="text-center mb-4">Courses</h2>
+
+    <form method="get" class="d-flex justify-content-between align-items-center mb-4">
+        <input type="text" name="search" placeholder="Search by title..." class="form-control me-2" value="{{ request.GET.search }}">
+        <select name="platform" class="form-select me-2" style="max-width: 200px;">
+            <option value="All">All Platforms</option>
+            {% for plat in platforms %}
+                <option value="{{ plat }}" {% if request.GET.platform == plat %}selected{% endif %}>{{ plat }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="btn btn-outline-primary">Filter</button>
+    </form>
+
     <div class="row">
         {% for course in courses %}
         <div class="col-md-4 mb-4">
-            <div class="card shadow-sm h-100 border-0">
-                <div class="card-body text-center">
-                    <h5 class="card-title fw-bold">{{ course.title }}</h5>
+            <div class="card h-100 text-center shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ course.title }}</h5>
                     <p class="card-text">{{ course.description }}</p>
-                    <p class="mb-1"><strong>Platform:</strong> {{ course.platform }}</p>
-
+                    <p><strong>Platform:</strong> {{ course.platform }}</p>
                     <a href="{{ course.url }}" class="btn btn-primary btn-sm mb-2" target="_blank">View Course</a>
 
-                    <p class="mb-1"><strong>Progress:</strong> {{ course_progress_map|default_if_none:"0"|dict_key:course.id }}%</p>
+                    <p><strong>Progress:</strong> {{ course_progress_map|dict_key:course.id }}%</p>
+
+                    {% if course.id in completed_courses %}
+                        <span class="badge bg-success mb-2">🏅 Completed</span>
+                    {% endif %}
 
                     <form method="POST" action="{% url 'update_progress' course.id %}">
                         {% csrf_token %}
                         <input type="range" name="progress" min="0" max="100"
-                            value="{{ course_progress_map|default_if_none:"0"|dict_key:course.id }}"
-                            class="form-range mb-2">
+                               value="{{ course_progress_map|dict_key:course.id }}"
+                               class="form-range mb-2">
                         <button type="submit" class="btn btn-success btn-sm">Update Progress</button>
                     </form>
                 </div>
             </div>
         </div>
+        {% empty %}
+        <p>No courses match your search or filter.</p>
         {% endfor %}
     </div>
 </div>
