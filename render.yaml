@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: skillsync-web
+    env: python
+    plan: free
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn skillsync.wsgi:application"
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: skillsync.settings
+      - key: PYTHON_VERSION
+        value: 3.12.7
