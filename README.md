@@ -6,13 +6,22 @@ SkillSync is a personal skill management and course tracking web application des
 
 ## 🚀 Features
 
-- 🔐 **User Authentication** – Secure signup, login, and logout system
-- 🎯 **Skill Tracking** – Add and view personal skillsets with descriptions
-- 📚 **Course Management** – Enroll in external courses with tracking
-- 📊 **Progress Monitoring** – Track learning progress with dynamic progress bars
-- 📈 **REST API** – API endpoints for skills and courses using Django REST Framework
-- 🧠 **Admin Panel** – Manage all data from Django’s built-in admin interface
-- 💻 **Responsive UI** – Designed using Bootstrap for mobile-friendly usage
+🚀 Features
+	•	🔐 User Authentication – Secure signup, login, and logout system
+	•	🧠 AI Chatbot Assistant – A built-in assistant to help users navigate the app
+	•	🎯 Skill Tracking – Add and view personal skillsets with descriptions
+	•	🎓 Course Management – Enroll in external courses with tracking
+	•	📈 Progress Monitoring – Track learning progress with dynamic progress bars
+	•	🎖️ Course Completion Badges – Visual badges for completed courses
+	•	📊 Profile Dashboard – Interactive charts for skill and course progress
+	•	🌓 Dark Mode Toggle – Seamless switch between light and dark themes
+	•	🧾 PDF Report Download – Export your progress as a downloadable PDF
+	•	💬 Feedback Form – Collect user suggestions and feedback
+	•	🖼️ Learning Illustration – SVG graphic for a modern homepage look
+	•	💡 Motivational Quote – “The best way to predict the future is to create it.” — Abraham Lincoln
+	•	⚙️ REST API – API endpoints for skills and courses using Django REST Framework
+	•	🛠️ Admin Panel – Manage all data from Django’s built-in admin interface
+	•	📱 Responsive UI – Designed using Bootstrap for mobile-friendly usage
 
 ---
 
